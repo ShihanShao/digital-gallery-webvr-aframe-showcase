@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>DIGIGAL GALLERY ZEHONGSHAO</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/supermedium/aframe-environment-component@master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cursor {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 2D Circle UI Cursor -->
+    <div class="cursor"></div>
+    <a-scene>
+        <!-----------------------------------------------ASSETS ----------------------------------------------------------------------------------------------->
+        <a-assets>
+            <!-- hdri--etc--asset -->
+            <img id="myHDRI" src="Texture/symmetrical_garden_02_4k.jpeg" crossorigin="anonymous">
+            <audio id="background-music" src="sound/betterday.mp3"></audio>
+            <a-entity id="gallery" src="model/Gallery.glb"></a-entity>
+            <a-entity id="indexNumber" src="model/indexNumber.glb"></a-entity>
+            <a-entity id="button7" src="model/Button7.glb"></a-entity>
+            <a-entity id="button8" src="model/Button8.glb"></a-entity>
+            <a-entity id="button9" src="model/Button9.glb"></a-entity>
+            <a-entity id="button10" src="model/Button10.glb"></a-entity>
+            <a-entity id="button11" src="model/Button11.glb"></a-entity>
+            <a-entity id="button12" src="model/Button12.glb"></a-entity>
+
+            <!-- painting1--asset -->
+            <a-entity id="painting1" src="model/Painting1.glb"></a-entity>
+            <a-asset-item id="painting1_Pic" src="model/Painting1_Pic.glb"></a-asset-item>
+            <img id="painting1_PicTexture" src="Paintings/9_Air de Capri_Gerda Wegener.jpg">
+            <a-asset-item id="painting1_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting1_texture" src="Paintings/Painting1Texture.png">
+            <audio id="painting1_sound" src="sound/painting1sound.MP3"></audio>
+            <a-asset-item id="button1_cube" src="model/button1_cube.glb"></a-asset-item>
+
+            <!-- painting2--asset -->
+            <a-entity id="painting2" src="model/Painting2.glb"></a-entity>
+            <a-asset-item id="painting2_Pic" src="model/Painting2_Pic.glb"></a-asset-item>
+            <img id="painting2_PicTexture" src="Paintings/1_Irises VINCENT VAN GOGH.jpg">
+            <a-asset-item id="painting2_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting2_texture" src="Paintings/Painting2Texture.png">
+            <a-asset-item id="button2_cube" src="model/button2_cube.glb"></a-asset-item>
+
+            <!-- painting3--asset -->
+            <a-entity id="painting3" src="model/Painting3.glb"></a-entity>
+            <a-asset-item id="painting3_Pic" src="model/Painting3_Pic.glb"></a-asset-item>
+            <img id="painting3_PicTexture" src="Paintings/2_Gustav Klimt, The Kiss, 1908.jpg">
+            <a-asset-item id="painting3_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting3_texture" src="Paintings/Painting3Texture.png">
+            <a-asset-item id="button3_cube" src="model/button3_cube.glb"></a-asset-item>
+
+            <!-- painting4--asset -->
+            <a-entity id="painting4" src="model/Painting4.glb"></a-entity>
+            <a-asset-item id="painting4_Pic" src="model/Painting4_Pic.glb"></a-asset-item>
+            <img id="painting4_PicTexture" src="Paintings/4_Birth of Venus (La Nascita di Venere).jpg">
+            <a-asset-item id="painting4_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting4_texture" src="Paintings/Painting4Texture.png">
+            <a-asset-item id="button4_cube" src="model/button4_cube.glb"></a-asset-item>
+
+            <!-- painting5--asset -->
+            <a-entity id="painting5" src="model/Painting5.glb"></a-entity>
+            <a-asset-item id="painting5_Pic" src="model/Painting5_Pic.glb"></a-asset-item>
+            <img id="painting5_PicTexture" src="Paintings/5_Midsummer Eve Painting by Edward Robert Hughes.jpg">
+            <a-asset-item id="painting5_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting5_texture" src="Paintings/Painting5Texture.png">
+            <a-asset-item id="button5_cube" src="model/button5_cube.glb"></a-asset-item>
+
+            <!-- painting6--asset -->
+            <a-entity id="painting6" src="model/Painting6.glb"></a-entity>
+            <a-asset-item id="painting6_Pic" src="model/Painting6_Pic.glb"></a-asset-item>
+            <img id="painting6_PicTexture" src="Paintings/6_A Blonde Beauty Holding a Book.jpg">
+            <a-asset-item id="painting6_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting6_texture" src="Paintings/Painting6Texture.png">
+            <a-asset-item id="button6_cube" src="model/button6_cube.glb"></a-asset-item>
+
+            <!-- painting7--asset -->
+            <a-entity id="painting7" src="model/Painting7.glb"></a-entity>
+            <a-asset-item id="painting7_Pic" src="model/Painting7_Pic.glb"></a-asset-item>
+            <img id="painting7_PicTexture" src="Paintings/10_Cafe Terrace at Night, also known as The Cafe Terrace on the Place du Forum.jpg">
+            <a-asset-item id="painting7_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting7_texture" src="Paintings/Painting7Texture.png">
+            <a-asset-item id="button7_cube" src="model/button7_cube.glb"></a-asset-item>
+
+            <!-- painting8--asset -->
+            <a-entity id="painting8" src="model/Painting8.glb"></a-entity>
+            <a-asset-item id="painting8_Pic" src="model/Painting8_Pic.glb"></a-asset-item>
+            <img id="painting8_PicTexture" src="Paintings/7_A Colonnade Overlooking the Isle of Capri.jpg">
+            <a-asset-item id="painting8_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting8_texture" src="Paintings/Painting8Texture.png">
+            <a-asset-item id="button8_cube" src="model/button8_cube.glb"></a-asset-item>
+
+            <!-- painting9--asset -->
+            <a-entity id="painting9" src="model/Painting9.glb"></a-entity>
+            <a-asset-item id="painting9_Pic" src="model/Painting9_Pic.glb"></a-asset-item>
+            <img id="painting9_PicTexture" src="Paintings/15_Haystacks at Giverny_claude monet.jpg">
+            <a-asset-item id="painting9_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting9_texture" src="Paintings/Painting9Texture.png">
+            <a-asset-item id="button9_cube" src="model/button9_cube.glb"></a-asset-item>
+
+            <!-- painting10--asset -->
+            <a-entity id="painting10" src="model/Painting10.glb"></a-entity>
+            <a-asset-item id="painting10_Pic" src="model/Painting10_Pic.glb"></a-asset-item>
+            <img id="painting10_PicTexture" src="Paintings/17_Nature Morte Aux Oranges Et Citrons.jpg">
+            <a-asset-item id="painting10_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting10_texture" src="Paintings/Painting10Texture.png">
+            <a-asset-item id="button10_cube" src="model/button10_cube.glb"></a-asset-item>
+
+            <!-- painting11--asset -->
+            <a-entity id="painting11" src="model/Painting11.glb"></a-entity>
+            <a-asset-item id="painting11_Pic" src="model/Painting11_Pic.glb"></a-asset-item>
+            <img id="painting11_PicTexture" src="Paintings/18_The Rehearsal (c. 1873-78) by Edgar Degas.jpg">
+            <a-asset-item id="painting11_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting11_texture" src="Paintings/Painting11Texture.png">
+            <a-asset-item id="button11_cube" src="model/button11_cube.glb"></a-asset-item>
+
+            <!-- painting12--asset -->
+            <a-entity id="painting12" src="model/Painting12.glb"></a-entity>
+            <a-asset-item id="painting12_Pic" src="model/Painting12_Pic.glb"></a-asset-item>
+            <img id="painting12_PicTexture" src="Paintings/20_Tyrol Franz Marc..jpg">
+            <a-asset-item id="painting12_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting12_texture" src="Paintings/Painting12Texture.png">
+            <a-asset-item id="button12_cube" src="model/button12_cube.glb"></a-asset-item>
+
+            <!-- painting13--asset -->
+            <a-entity id="painting13" src="model/Painting13.glb"></a-entity>
+            <a-asset-item id="painting13_Pic" src="model/Painting13_Pic.glb"></a-asset-item>
+            <img id="painting13_PicTexture" src="Paintings/12_Church in Unterach on the Attersee.jpg">
+            <a-asset-item id="painting13_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting13_texture" src="Paintings/Painting13Texture.png">
+            <a-asset-item id="button13_cube" src="model/button13_cube.glb"></a-asset-item>
+
+            <!-- painting14--asset -->
+            <a-entity id="painting14" src="model/Painting14.glb"></a-entity>
+            <a-asset-item id="painting14_Pic" src="model/Painting14_Pic.glb"></a-asset-item>
+            <img id="painting14_PicTexture" src="Paintings/11_Church at Montevrain.jpg">
+            <a-asset-item id="painting14_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting14_texture" src="Paintings/Painting14Texture.png">
+            <a-asset-item id="button14_cube" src="model/button14_cube.glb"></a-asset-item>
+
+            <!-- painting15--asset -->
+            <a-entity id="painting15" src="model/Painting15.glb"></a-entity>
+            <a-asset-item id="painting15_Pic" src="model/Painting15_Pic.glb"></a-asset-item>
+            <img id="painting15_PicTexture" src="Paintings/19_The Tower of Babel.jpg">
+            <a-asset-item id="painting15_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting15_texture" src="Paintings/Painting15Texture.png">
+            <a-asset-item id="button15_cube" src="model/button15_cube.glb"></a-asset-item>
+
+            <!-- painting16--asset -->
+            <a-entity id="painting16" src="model/Painting16.glb"></a-entity>
+            <a-asset-item id="painting16_Pic" src="model/Painting16_Pic.glb"></a-asset-item>
+            <img id="painting16_PicTexture" src="Paintings/13_Female Head.jpg">
+            <a-asset-item id="painting16_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting16_texture" src="Paintings/Painting16Texture.png">
+            <a-asset-item id="button16_cube" src="model/button16_cube.glb"></a-asset-item>
+
+            <!-- painting17--asset -->
+            <a-entity id="painting17" src="model/Painting17.glb"></a-entity>
+            <a-asset-item id="painting17_Pic" src="model/Painting17_Pic.glb"></a-asset-item>
+            <img id="painting17_PicTexture" src="Paintings/14_George Washington Before the Battle of Trenton.jpg">
+            <a-asset-item id="painting17_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting17_texture" src="Paintings/Painting17Texture.png">
+            <a-asset-item id="button17_cube" src="model/button17_cube.glb"></a-asset-item>
+
+            <!-- painting18--asset -->
+            <a-entity id="painting18" src="model/Painting18.glb"></a-entity>
+            <a-asset-item id="painting18_Pic" src="model/Painting18_Pic.glb"></a-asset-item>
+            <img id="painting18_PicTexture" src="Paintings/16_krumau-town5.jpg">
+            <a-asset-item id="painting18_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting18_texture" src="Paintings/Painting18Texture.png">
+            <a-asset-item id="button18_cube" src="model/button18_cube.glb"></a-asset-item>
+
+            <!-- painting19--asset -->
+            <a-entity id="painting19" src="model/Painting19.glb"></a-entity>
+            <a-asset-item id="painting19_Pic" src="model/Painting19_Pic.glb"></a-asset-item>
+            <img id="painting19_PicTexture" src="Paintings/8_A_Friend.jpg">
+            <a-asset-item id="painting19_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting19_texture" src="Paintings/Painting19Texture.png">
+            <a-asset-item id="button19_cube" src="model/button19_cube.glb"></a-asset-item>
+
+            <!-- painting20--asset -->
+            <a-entity id="painting20" src="model/Painting20.glb"></a-entity>
+            <a-asset-item id="painting20_Pic" src="model/Painting20_Pic.glb"></a-asset-item>
+            <img id="painting20_PicTexture" src="Paintings/3_yellowredblue1925wassilykandinsky.jpg">
+            <a-asset-item id="painting20_text" src="model/Painting1_text.glb"></a-asset-item>
+            <img id="painting20_texture" src="Paintings/Painting20Texture.png">
+            <a-asset-item id="button20_cube" src="model/button20_cube.glb"></a-asset-item>
+
+            <!-- painting21--asset -->
+            <a-entity id="painting21" src="model/Painting21.glb"></a-entity>
+
+        </a-assets>
+        <!-----------------------------------------------IN SCENE ENTITIES ------------------------------------------------------------------------------------->
+        <!----------------LIGHTING STUFF IN SCENE----------------------------->
+            <!-- Lighting -->
+            <a-entity light="type: ambient; intensity: 1.2"></a-entity>
+            <a-entity light="type: directional; intensity: 1.8; position: 0 1 0"></a-entity>
+
+            <!-- HDRI -->
+            <a-sky src="#myHDRI"></a-sky>
+
+            <!-- BGM etc -->
+            <a-entity id="background-music-entity"  sound="src:#background-music; autoplay: true; loop: true; volume:0.2"></a-entity>
+
+            <!-- other models etc -->
+            <a-entity gltf-model="#gallery" position="0 0.6 0"></a-entity>
+            <a-entity gltf-model="#indexNumber" position="0 0.6 0"></a-entity>
+            <a-entity gltf-model="#button7" position="0 0.6 0"></a-entity>
+            <a-entity gltf-model="#button8" position="0 0.6 0"></a-entity>
+            <a-entity gltf-model="#button9" position="0 0.6 0"></a-entity>
+            <a-entity gltf-model="#button10" position="0 0.6 0"></a-entity>
+            <a-entity gltf-model="#button11" position="0 0.6 0"></a-entity>
+            <a-entity gltf-model="#button12" position="0 0.6 0"></a-entity>
+
+        <!----------------CAMERA COLLIDER SETUP ------------------------------->
+            <!-- Define the gallery box collider -->
+            <a-box id="boundingBox" position="-0.48 1.73 0.2" rotation="0 0 0" color="#4CC3D9" scale="4.5 1.9 4.3" visible="false" nav-mesh></a-box>
+
+            <!-- Define the camera -->
+            <a-entity id="camera" camera wasd-controls look-controls=" acceleration: 0.5" position="0 1.75 0" constrain-movement="box: #boundingBox">
+              <a-entity raycaster="objects: .collidable"></a-entity>
+              <a-entity cursor="rayOrigin: mouse" raycaster="objects: .collidable"></a-entity>
+            </a-entity>
+
+            <!-- painting1 -->
+            <a-entity gltf-model="#painting1" position="0 0.6 0"></a-entity>
+            <a-entity id="painting1_Pic_entity" gltf-model="#painting1_Pic" position="0 0.6 0" visible="false"></a-entity>
+            <a-entity id="painting1_text_entity" gltf-model="#painting1_text" position="0 0.6 0" visible="false" apply-scroll-texture="texture: #painting1_texture; speed:0.01;"></a-entity>
+            <a-entity id="painting1_sound_entity" sound="src:#painting1_sound; autoplay: false; loop: false; volume:0.6"></a-entity>
+            <a-entity id="button1_cube_entity" gltf-model="#button1_cube" position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting2 -->
+            <a-entity gltf-model="#painting2" position="0 0.6 0"></a-entity>
+            <a-entity id="painting2_Pic_entity" gltf-model="#painting2_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting2_text_entity" gltf-model="#painting2_text" position="0 0.6 0" visible="false" apply-scroll-texture="texture: #painting2_texture; speed:0.01;"></a-entity>
+            <a-entity id="button2_cube_entity" gltf-model="#button2_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting3 -->
+            <a-entity gltf-model="#painting3" position="0 0.6 0"></a-entity>
+            <a-entity id="painting3_Pic_entity" gltf-model="#painting3_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting3_text_entity" gltf-model="#painting3_text" position="0 0.6 0" visible="false" apply-scroll-texture="texture: #painting3_texture; speed:0.01;"></a-entity>
+            <a-entity id="button3_cube_entity" gltf-model="#button3_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting4 -->
+            <a-entity gltf-model="#painting4" position="0 0.6 0"></a-entity>
+            <a-entity id="painting4_Pic_entity" gltf-model="#painting4_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting4_text_entity" gltf-model="#painting4_text" position="0 0.6 0.3" visible="false" apply-scroll-texture="texture: #painting4_texture; speed:0.01;"></a-entity>
+            <a-entity id="button4_cube_entity" gltf-model="#button4_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting5 -->
+            <a-entity gltf-model="#painting5" position="0 0.6 0"></a-entity>
+            <a-entity id="painting5_Pic_entity" gltf-model="#painting5_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting5_text_entity" gltf-model="#painting5_text" position="0 0.6 0" visible="false" apply-scroll-texture="texture: #painting5_texture; speed:0.01;"></a-entity>
+            <a-entity id="button5_cube_entity" gltf-model="#button5_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting6 -->
+            <a-entity gltf-model="#painting6" position="0 0.6 0"></a-entity>
+            <a-entity id="painting6_Pic_entity" gltf-model="#painting6_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting6_text_entity" gltf-model="#painting6_text" position="0 0.6 0" visible="false" apply-scroll-texture="texture: #painting6_texture; speed:0.01;"></a-entity>
+            <a-entity id="button6_cube_entity" gltf-model="#button6_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting7 -->
+            <a-entity gltf-model="#painting7" position="0 0.6 0"></a-entity>
+            <a-entity id="painting7_Pic_entity" gltf-model="#painting7_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting7_text_entity" gltf-model="#painting7_text" position="1.8 0.6 0.6"  rotation="0 -90 0 " visible="false" apply-scroll-texture="texture: #painting7_texture; speed:0.01;"></a-entity>
+            <a-entity id="button7_cube_entity" gltf-model="#button7_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting8 -->
+            <a-entity gltf-model="#painting8" position="0 0.6 0"></a-entity>
+            <a-entity id="painting8_Pic_entity" gltf-model="#painting8_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting8_text_entity" gltf-model="#painting8_text" position="1.8 0.6 0.6"  rotation="0 -90 0 " visible="false" apply-scroll-texture="texture: #painting8_texture; speed:0.01;"></a-entity>
+            <a-entity id="button8_cube_entity" gltf-model="#button8_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting9 -->
+            <a-entity gltf-model="#painting9" position="0 0.6 0"></a-entity>
+            <a-entity id="painting9_Pic_entity" gltf-model="#painting9_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting9_text_entity" gltf-model="#painting9_text" position="1.8 0.6 0.6"  rotation="0 -90 0 " visible="false" apply-scroll-texture="texture: #painting9_texture; speed:0.01;"></a-entity>
+            <a-entity id="button9_cube_entity" gltf-model="#button9_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting10 -->
+            <a-entity gltf-model="#painting10" position="0 0.6 0"></a-entity>
+            <a-entity id="painting10_Pic_entity" gltf-model="#painting10_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting10_text_entity" gltf-model="#painting10_text" position="1.8 0.6 0.6"  rotation="0 -90 0 " visible="false" apply-scroll-texture="texture: #painting10_texture; speed:0.01;"></a-entity>
+            <a-entity id="button10_cube_entity" gltf-model="#button10_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting11 -->
+            <a-entity gltf-model="#painting11" position="0 0.6 0"></a-entity>
+            <a-entity id="painting11_Pic_entity" gltf-model="#painting11_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting11_text_entity" gltf-model="#painting11_text" position="1.8 0.6 0.6"  rotation="0 -90 0 " visible="false"  apply-scroll-texture="texture: #painting11_texture; speed:0.01;"></a-entity>
+            <a-entity id="button11_cube_entity" gltf-model="#button11_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting12 -->
+            <a-entity gltf-model="#painting12" position="0 0.6 0"></a-entity>
+            <a-entity id="painting12_Pic_entity" gltf-model="#painting12_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting12_text_entity" gltf-model="#painting12_text" position="1.8 0.6 0.6"  rotation="0 -90 0 " visible="false" apply-scroll-texture="texture: #painting12_texture; speed:0.01;"></a-entity>
+            <a-entity id="button12_cube_entity" gltf-model="#button12_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting13 -->
+            <a-entity gltf-model="#painting13" position="0 0.6 0"></a-entity>
+            <a-entity id="painting13_Pic_entity" gltf-model="#painting13_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting13_text_entity" gltf-model="#painting13_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting13_texture; speed:0.01;"></a-entity>
+            <a-entity id="button13_cube_entity" gltf-model="#button13_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting14 -->
+            <a-entity gltf-model="#painting14" position="0 0.6 0"></a-entity>
+            <a-entity id="painting14_Pic_entity" gltf-model="#painting14_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting14_text_entity" gltf-model="#painting14_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting14_texture; speed:0.01;"></a-entity>
+            <a-entity id="button14_cube_entity" gltf-model="#button14_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting15 -->
+            <a-entity gltf-model="#painting15" position="0 0.6 0"></a-entity>
+            <a-entity id="painting15_Pic_entity" gltf-model="#painting15_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting15_text_entity" gltf-model="#painting15_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting15_texture; speed:0.01;"></a-entity>
+            <a-entity id="button15_cube_entity" gltf-model="#button15_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting16 -->
+            <a-entity gltf-model="#painting16" position="0 0.6 0"></a-entity>
+            <a-entity id="painting16_Pic_entity" gltf-model="#painting16_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting16_text_entity" gltf-model="#painting16_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting16_texture; speed:0.01;"></a-entity>
+            <a-entity id="button16_cube_entity" gltf-model="#button16_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting17 -->
+            <a-entity gltf-model="#painting17" position="0 0.6 0"></a-entity>
+            <a-entity id="painting17_Pic_entity" gltf-model="#painting17_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting17_text_entity" gltf-model="#painting17_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting17_texture; speed:0.01;"></a-entity>
+            <a-entity id="button17_cube_entity" gltf-model="#button17_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting18 -->
+            <a-entity gltf-model="#painting18" position="0 0.6 0"></a-entity>
+            <a-entity id="painting18_Pic_entity" gltf-model="#painting18_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting18_text_entity" gltf-model="#painting18_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting18_texture; speed:0.01;"></a-entity>
+            <a-entity id="button18_cube_entity" gltf-model="#button18_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting19 -->
+            <a-entity gltf-model="#painting19" position="0 0.6 0"></a-entity>
+            <a-entity id="painting19_Pic_entity" gltf-model="#painting19_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting19_text_entity" gltf-model="#painting19_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting19_texture; speed:0.01;"></a-entity>
+            <a-entity id="button19_cube_entity" gltf-model="#button19_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting20 -->
+            <a-entity gltf-model="#painting20" position="0 0.6 0"></a-entity>
+            <a-entity id="painting20_Pic_entity" gltf-model="#painting20_Pic" position="0 0.6 0" visible="false"></a-entity> 
+            <a-entity id="painting20_text_entity" gltf-model="#painting20_text" position="-0.6 0.6 2.2"  rotation="0 -180 0 " visible="false" apply-scroll-texture="texture: #painting20_texture; speed:0.01;"></a-entity>
+            <a-entity id="button20_cube_entity" gltf-model="#button20_cube"  position="0 0.6 0" material="opacity: 0.1; transparent: true" class="collidable"></a-entity>
+            
+            <!-- painting21 -->
+            <a-entity gltf-model="#painting21" position="0 0.6 0"></a-entity>
+       
+        <!-----------------------------------------------FUNCTIONILITIES ------------------------------------------------------------------------------------->
+        <script>
+            //<!----------------2D CURSOR WITH CLICK--------------------------------------------------------------->
+            document.addEventListener('click', function (event) {
+                const cursor = document.querySelector('.cursor');
+                const cursorRect = cursor.getBoundingClientRect();
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+
+                // Calculate if the click happened inside the 2D cursor
+                if (mouseX >= cursorRect.left &&
+                    mouseX <= cursorRect.right &&
+                    mouseY >= cursorRect.top &&
+                    mouseY <= cursorRect.bottom) {
+                    // Find all clickable entities and check for intersections
+                    const cameraEl = document.querySelector('#camera');
+                    const raycasterEl = cameraEl.querySelector('[raycaster]');
+                    raycasterEl.components.raycaster.refreshObjects();
+                    const intersects = raycasterEl.components.raycaster.intersectedEls;
+                    
+                    intersects.forEach(entity => {
+                        if (entity.classList.contains('collidable')) {
+                            // Example action: Change the entity's color on click
+                            entity.setAttribute('material', 'color', '#FF0000');
+                        }
+                    });
+                }
+            });
+
+            // <!-----------------FUNCTION CAMERA BOUNDRY-------------------------------------------------------------->
+            AFRAME.registerComponent('constrain-movement', {
+                schema: {
+                box: {type: 'selector'}
+                },
+                tick: function () {
+                const box = this.data.box;
+                const camera = this.el;
+                if (!box) { return; }
+                const boxPos = box.getAttribute('position');
+                const boxScale = box.getAttribute('scale');
+                const boxMinX = boxPos.x - boxScale.x / 2;
+                const boxMaxX = boxPos.x + boxScale.x / 2;
+                const boxMinY = boxPos.y - boxScale.y / 2;
+                const boxMaxY = boxPos.y + boxScale.y / 2;
+                const boxMinZ = boxPos.z - boxScale.z / 2;
+                const boxMaxZ = boxPos.z + boxScale.z / 2;
+                const cameraPos = camera.getAttribute('position');
+            // Constrain the camera position within the bounding box
+                if (cameraPos.x < boxMinX) cameraPos.x = boxMinX;
+                if (cameraPos.x > boxMaxX) cameraPos.x = boxMaxX;
+                if (cameraPos.y < boxMinY) cameraPos.y = boxMinY;
+                if (cameraPos.y > boxMaxY) cameraPos.y = boxMaxY;
+                if (cameraPos.z < boxMinZ) cameraPos.z = boxMinZ;
+                if (cameraPos.z > boxMaxZ) cameraPos.z = boxMaxZ;
+                camera.setAttribute('position', cameraPos);
+                }
+            });
+
+            //<!----------------TEXTURE SCROLL UP IN ENTITY------------------------------------------------------------>
+            AFRAME.registerComponent('apply-scroll-texture', {
+                schema: {
+                    texture: { type: 'selector' },
+                    speed: { type: 'number', default: 0.01 },
+                    opacity: { type: 'number', default: 1 }
+                },
+
+                init: function () {
+                    const texture = new THREE.TextureLoader().load(this.data.texture.getAttribute('src'), (loadedTexture) => {
+                        console.log('Texture loaded:', loadedTexture); // Debug texture loading
+                    });
+
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.x = -1; // Flip the texture horizontally
+                    texture.offset.x = 1;
+                    
+                    this.el.addEventListener('model-loaded', () => {
+                        const model = this.el.getObject3D('mesh');
+                        if (model) {
+                            model.traverse((node) => {
+                                if (node.isMesh) {
+                                    const material = node.material;
+                                    material.map = texture;
+                                    material.map.rotation = Math.PI; // Rotate the texture by 180 degrees
+                                    material.needsUpdate = true;
+                                    material.transparent = true;
+                                    material.opacity = this.data.opacity;
+                                    material.depthWrite = false;
+                                    console.log('Material updated:', material); // Debug material properties
+                                }
+                            });
+                        }
+                    });
+                },
+                
+                // Scroll the text texture
+                tick: function (time, timeDelta) {
+                    const model = this.el.getObject3D('mesh');
+                     if (model) {
+                        model.traverse((node) => {
+                         if (node.isMesh) {
+                               console.log('Node:', node); // Log node for debugging
+                           if (node.material && node.material.map) {
+                               node.material.map.offset.y -= this.data.speed * (timeDelta / 1000); // Scroll texture vertically
+                               node.material.needsUpdate = true;
+                               console.log('Texture offset:', node.material.map.offset); // Debug texture offset
+                               } else {
+                               console.log('No map found for node:', node); // Log when no map is found
+                               }
+                              }
+                          });
+                        }
+                    }
+                 });
+                    
+
+
+           //<!----------------BUTTON OPACITY ------------------------------------------------------------------------>
+            AFRAME.registerComponent('set-opacity', {
+                schema: { type: 'number', default: 0.1 },
+
+                init: function () {
+                    const modelEl = this.el;
+
+                    modelEl.addEventListener('model-loaded', () => {
+                        const model = modelEl.getObject3D('mesh');
+                        if (model) {
+                            model.traverse((node) => {
+                                if (node.isMesh) {
+                                    node.material.transparent = true;
+                                    node.material.opacity = this.data;
+                                    node.material.needsUpdate = true;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            
+            function setButtonOpacity(buttonId, opacity) {
+            const button = document.querySelector(buttonId);
+            if (button) {
+                button.setAttribute('set-opacity', opacity);
+            } else {
+                console.error(`Button with ID ${buttonId} not found.`);
+            }
+            }
+            // Loop through each button and apply the opacity attribute
+            for (let i = 1; i <= 20; i++) {
+            const buttonId = `#button${i}_cube_entity`;
+            setButtonOpacity(buttonId, '0.4');
+            }
+   
+            //<!----------------BUTTON CLICK OPACITY CHANGE ------------------------------------------------------------------------>
+            AFRAME.registerComponent('toggle-opacity-on-click', {
+                schema: {
+                    opacityEven: { type: 'number', default: 0.4 },
+                    opacityOdd: { type: 'number', default: 1 }
+                },
+
+                init: function () {
+                    this.clickCount = 0; // Initialize click count
+
+                    this.el.addEventListener('click', () => this.toggleOpacity());
+                },
+
+                toggleOpacity: function () {
+                    this.clickCount++;
+                    const isEvenClick = this.clickCount % 2 === 0;
+                    const newOpacity = isEvenClick ? this.data.opacityEven : this.data.opacityOdd;
+
+                    const mesh = this.el.getObject3D('mesh');
+                    if (mesh) {
+                        mesh.traverse((node) => {
+                            if (node.isMesh) {
+                                node.material.transparent = true;
+                                node.material.opacity = newOpacity;
+                                node.material.needsUpdate = true;
+                            }
+                        });
+                    }
+                }
+            });
+           
+            function applyOpacityToggle(buttonId, opacityEven, opacityOdd) {
+            const button = document.querySelector(buttonId);
+            if (button) {
+                button.setAttribute('toggle-opacity-on-click', {
+                opacityEven: opacityEven,
+                opacityOdd: opacityOdd
+            });
+            } else {
+            console.error(`Button with ID ${buttonId} not found.`);
+            }
+            }
+             // Loop through each button and apply the component
+            for (let i = 1; i <= 20; i++) {
+            const buttonId = `#button${i}_cube_entity`;
+            applyOpacityToggle(buttonId, 0.4, 1);
+            }
+
+            //<!----------------BUTTON CLICK PAINTINGS VISIBILITY ------------------------------------------------------------------------>
+            AFRAME.registerComponent('toggle-visibility-on-click', {
+                schema: {
+                    targetEntities: { type: 'selectorAll' }
+                },
+
+                init: function () {
+                    this.clickCount = 1; // Initialize click count
+                    this.el.addEventListener('click', () => this.toggleVisibility());
+                },
+
+                toggleVisibility: function () {
+                    this.clickCount++;
+                    const isEvenClick = this.clickCount % 2 === 0;
+
+                    // Debug logs
+                    console.log('Click Count:', this.clickCount, 'Is Even Click:', isEvenClick);
+
+                    // Show or hide the paintings based on click count
+                    this.data.targetEntities.forEach(selector => {
+                        const entity = document.querySelector(selector);
+                        if (entity) {
+                            console.log(`Toggling visibility of ${selector}`);
+                            entity.setAttribute('visible', isEvenClick);
+                        } else {
+                            console.error(`Entity ${selector} not found`);
+                        }
+                    });
+
+                    // Optionally toggle button opacity
+                    const opacity = isEvenClick ? 0.1 : 1;
+                    this.el.setAttribute('material', 'opacity', opacity);
+                }
+            });
+            
+            function applyVisibilityToggle(buttonId, paintingIds) {
+            const button = document.querySelector(buttonId);
+            if (button) {
+                button.setAttribute('toggle-visibility-on-click', {
+                targetEntities: paintingIds
+            });
+            } else {
+            console.error(`Button with ID ${buttonId} not found.`);
+            }
+            }
+
+            for (let i = 1; i <= 20; i++) {
+            const buttonId = `#button${i}_cube_entity`;
+            const paintingIds = [`#painting${i}_Pic_entity`, `#painting${i}_text_entity`];
+            applyVisibilityToggle(buttonId, paintingIds);
+            }
+
+
+            //<!----------------BUTTON CLICK SOUND ------------------------------------------------------------------------>
+            let clickCounter = 1; // Counter to keep track of clicks
+            document.querySelector('#button1_cube_entity').addEventListener('click', function () {
+            const painting1Sound = document.getElementById('painting1_sound_entity');
+    
+            // Increment the click counter
+            clickCounter++;
+    
+            if (painting1Sound.components.sound) {
+            if (clickCounter % 2 === 0) {
+            // Even number of clicks - play sound
+               painting1Sound.components.sound.playSound();
+            } else {
+            // Odd number of clicks - stop sound
+               painting1Sound.components.sound.stopSound();
+            }
+            } else {
+               painting1Sound.addEventListener('sound-loaded', function () {
+            if (clickCounter % 2 === 0) {
+                // Even number of clicks - play sound
+                painting1Sound.components.sound.playSound();
+            } else {
+                // Odd number of clicks - stop sound
+                painting1Sound.components.sound.stopSound();
+            }
+             });
+            }
+          });
+
+        </script>
+    </a-scene>
+</body>
+
+</html>
